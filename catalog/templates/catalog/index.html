@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+    Local Library
+{% endblock %}
+
+{% block content %}
+    {{ request.user.is_authenticated }}
+    <h1>Local Library Home</h1>
+    <p>Welcome to LocalLibrary, a website developed by <em>Peter Thua</em></p>
+
+    <p>Library Records: </p>
+    <ul>
+    <li><strong>Books: </strong>{{ num_books }}</li>
+    <li><strong>Copies: </strong>{{ num_instances }}</li>
+    <li><strong>Copies available: </strong>{{ num_instances_available }}</li>
+    <li><strong>Authors: </strong>{{ num_authors }}</li>
+    </ul>
+{% endblock %}

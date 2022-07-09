@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ author.last_name }} details
+{% endblock %}
+
+{% block content %}
+    <h1>Details for author <strong>{{ author.first_name }}</strong></h1>
+    <hr>
+    <h4 class="text-dark">Fullname: {{ author.first_name }} {{ author.last_name }}</h4>
+    <h4 class="text-dark">Birthday: {{ author.date_of_birth }}</h4>
+    <h4 class="text-dark">Status: {%  if author.date_of_death %}Dead {% else %}Alive{% endif %}</h4>
+    <br>
+    <a class="btn btn-primary" href="{% url 'update-author' author.id %}">Update Author</a>
+    <span><a class="btn btn-danger" href="{% url 'delete-author' author.id %}">Delete Author</a> </span>
+
+{% endblock %}

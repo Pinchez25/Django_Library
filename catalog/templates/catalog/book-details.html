@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% block title %}
+{{ book.title }} details
+{% endblock %}
+
+{% block content %}
+    <p><strong>Author: </strong><a href="">{{ book.author }}</a></p>
+    <p><strong>Summary: </strong>{{ book.summary }}</p>
+    <p><strong>ISBN: </strong>{{ book.isbn }}</p>
+{#    <p><strong>Language: </strong>{{ book.la }}</p>#}
+    <p><strong>Genre: </strong>{{ book.genre.all|join:", " }}</p>
+
+    <div style="margin-left: 20px;margin-top: 20px;">
+    <h4>Copies: {{ book.bookinstance_set.all.count }}</h4>
+    {% for copy in book.bookinstance_set.all %}
+        <hr>
+        <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm'%}text-danger{% else %}text-warning{% endif %}">
+           {{ copy.get_status_display }}
+        {% comment %}
+               NOTE: get_status_display function isn't declared anywhere else in the code.
+                This method is auto created cause BookInstance.status is a choices field.
+                Django auto creates a method get_FOO_display() for every choices field 'FOO' in a model,
+                which can be used to get the current value of the field.
+        {% endcomment %}
+
+        </p>
+        {% if copy.status != 'a' %}
+            <p><strong>Due to be returned: </strong>{{ copy.due_back }}</p>
+
+        {% endif %}
+        <p><strong>Imprint: </strong>{{ copy.imprint }}</p>
+        <p class="text-muted"><strong>Id: </strong>{{ copy.id }}</p>
+    {% endfor %}
+
+
+
+    </div>
+{% endblock %}
